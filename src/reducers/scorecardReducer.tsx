@@ -48,11 +48,7 @@ const scorecard = (state = initialState, action: any): IScoreReducer => {
         secondInning: { ...action.payload.secondInning }
       };
     case "SET_FETCHED_INNING_DETAIL":
-      console.log(
-        "Object.values(action.payload)",
-        Object.values(action.payload)
-      );
-      let a: any = Object.values(action.payload)[0];
+      let a: any = action.payload;
       let batval: any = a.firstInningBat;
       let bowlVal: any = a.firstInningBowl;
       let secBatval = a.secondInningBat;
@@ -388,18 +384,17 @@ function scoreCard(
           battingorder &&
           battingorder.map((item: any, index: number) => {
             if (item.id === playerId.striker) {
-              battingorder[index].ballsPlayed = +item.ballsPlayed + 1;
+              // battingorder[index].ballsPlayed = +item.ballsPlayed + 1;
               battingorder[index].strike = true;
               // battingorder[index].status = false;
             } else {
               battingorder[index].strike = false;
             }
-            if (item.strike === true) {
-              if (item.id !== playerId.striker) {
-                // battingorder[index].ballsPlayed = item.ballsPlayed + 1;
-                battingorder[index].strike = false;
-                battingorder[index].status = false;
-              }
+
+            if (item.id === playerId.out) {
+              battingorder[index].ballsPlayed = item.ballsPlayed + 1;
+              battingorder[index].strike = false;
+              battingorder[index].status = false;
             }
           }),
 
@@ -419,7 +414,7 @@ function scoreCard(
         balls: abc.balls - 1,
         currentOver: currentOver,
         overs: counter === 6 ? overs + 1 : +overs,
-        witckets: witcket + 1,
+        witckets: witcket < 9 ? witcket + 1 : 10,
         striker: playerId.striker,
         nonStriker: playerId.nonStriker
       };

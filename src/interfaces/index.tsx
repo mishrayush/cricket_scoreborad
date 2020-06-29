@@ -103,3 +103,9 @@ export interface IScoreReducer {
     nonStriker: number;
   };
 }
+
+export interface IStrikeRotate {
+  striker: number;
+  nonStriker: number;
+  out: number | null;
+}

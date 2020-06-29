@@ -14,7 +14,6 @@ const ConnectedList = (props: IStateProps & IDispatchProps) => {
     props.history.push("/match");
   }
   let id = localStorage.getItem("matchId");
-  console.log("id", id === "null", id !== null);
   React.useEffect(() => {
     if (id !== null || id !== undefined) {
       // props.fetchTeamList(id);

@@ -1,13 +1,14 @@
+import { IStrikeRotate } from "../interfaces/index";
 export function strikeRotate(
   batemenListForStrike: object,
   runs: string,
   counter: number
-) {
+): IStrikeRotate {
   let batting: any = batemenListForStrike;
   let striker: any;
   let nonStriker: any;
+  let out: any;
 
-  console.log("batting", typeof batting, batting);
   const battingLineUp: any = batting && Object.values(batting.battingLineUp);
 
   const strikecheck = (element: any) => element.id === batting.striker;
@@ -17,10 +18,16 @@ export function strikeRotate(
   const nonStrikercheck = (element: any) => element.id === batting.nonStriker;
   let nonStrikerIndex: number =
     battingLineUp && battingLineUp.findIndex(nonStrikercheck);
-
+  debugger;
   if (strikerIndex === -1 || nonStrikerIndex === -1) {
     striker = battingLineUp && battingLineUp[0].id;
     nonStriker = battingLineUp && battingLineUp[1].id;
+
+    if (runs === "Wk") {
+      striker = battingLineUp && battingLineUp[2].id;
+      nonStriker = battingLineUp && battingLineUp[1].id;
+      out = battingLineUp && battingLineUp[0].id;
+    }
   } else {
     if (runs === "1" || runs === "3" || runs === "5") {
       striker = battingLineUp && battingLineUp[nonStrikerIndex].id;
@@ -40,10 +47,11 @@ export function strikeRotate(
     if (runs === "Wk") {
       striker = battingLineUp && battingLineUp[nonStrikerIndex + 1].id;
       nonStriker = battingLineUp && battingLineUp[nonStrikerIndex].id;
+      out = battingLineUp && battingLineUp[strikerIndex].id;
     }
   }
 
-  return { striker, nonStriker };
+  return { striker, nonStriker, out };
 }
 
 export function bowlerRatate(bowlerLineUp: object, counter: number) {
@@ -108,13 +116,11 @@ export function inningEnd(
 }
 
 export function winningTeam(detail: any, intervel: any): string {
-  console.log("in winningTeam ", detail);
   let _result_: any;
   let _first_innings_detail_: any = detail.firstInning;
   let _second_innings_detail_: any = detail.secondInning;
   let _count_winning_difference_: number;
 
-  console.log("in winningTeam ", detail);
   if (_second_innings_detail_.witckets === 10) {
     if (_first_innings_detail_.score === _second_innings_detail_.score) {
       _result_ = "Match Tie";
@@ -131,17 +137,14 @@ export function winningTeam(detail: any, intervel: any): string {
       clearInterval(intervel);
     }
   }
-  if(
-    _first_innings_detail_.overs === _first_innings_detail_.totalOver
-  ) {
-    _result_ = `Second Innings`;
+  if (_first_innings_detail_.overs === _first_innings_detail_.totalOver) {
+    _result_ = `Second Inning`;
     clearInterval(intervel);
   }
-  if (
-    _first_innings_detail_.witckets === 10 ){
-      _result_ = `Second Innings`;
+  if (_first_innings_detail_.witckets === 10) {
+    _result_ = `Second Inning`;
     clearInterval(intervel);
-    }
+  }
 
   return _result_;
 }
@@ -156,15 +159,13 @@ export function scoreBoardButton(inningData: any): string {
   if (_first_inning_total_over_ === _first_inning_running_over_) {
     _result_ = "Start next inning";
   }
-  // if (_second_inning_total_over_ === _second_inning_running_over_) {
-  //   _result_ = "Score board";
-  // }
+
   if (
     _first_inning_total_over_ > _first_inning_running_over_ ||
     _second_inning_total_over_ > _second_inning_running_over_
   ) {
     _result_ = "Start over";
   }
-  console.log("_result_function", _result_);
+
   return _result_;
 }

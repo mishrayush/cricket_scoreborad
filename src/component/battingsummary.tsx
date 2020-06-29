@@ -30,6 +30,7 @@ export default function BattingSummary(props: IBattingSummary) {
             {props && props.TeamName}
             <TableRow>
               <TableCell>Player Name</TableCell>
+              <TableCell>Wicket</TableCell>
               <TableCell align="right">Ball</TableCell>
               <TableCell align="right">Runs</TableCell>
               <TableCell align="right">Strike Rate</TableCell>
@@ -44,6 +45,9 @@ export default function BattingSummary(props: IBattingSummary) {
                   <TableRow key={row.name}>
                     <TableCell component="th" scope="row">
                       {row.name}
+                    </TableCell>
+                    <TableCell>
+                      {row.status === true ? "Not Out" : "Out"}
                     </TableCell>
                     <TableCell align="right">{row.ballsPlayed}</TableCell>
                     <TableCell align="right">{row.runs}</TableCell>

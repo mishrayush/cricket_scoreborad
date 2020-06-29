@@ -170,7 +170,6 @@ function ConnectedMatchDetail(props: IPropsConnectedMatchDetail) {
   // Random get value from array
   function overs(): any {
     let newArr = ["0", "1", "2", "3", "4", "5", "6", "Wk", "Wd", "NoBall"];
-    // let newArr = ["Wk", "Wk", "Wk", "Wk", "Wk"];
     let randomValue = newArr[Math.floor(Math.random() * newArr.length)];
     setRunSingleBowl(randomValue);
     currentOver(randomValue);
@@ -207,7 +206,7 @@ function ConnectedMatchDetail(props: IPropsConnectedMatchDetail) {
   }
 
   function setIntervel() {
-    intervel = setInterval(overs, 3000);
+    intervel = setInterval(overs, 2000);
   }
 
   function onChangeInningHandler() {

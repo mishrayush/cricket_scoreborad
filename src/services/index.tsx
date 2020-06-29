@@ -62,7 +62,7 @@ export async function fetchInning() {
 export async function saveInningDetail(postData: object) {
   console.log("123456");
   const requestOptions: object = {
-    method: "POST",
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(postData)
   };
