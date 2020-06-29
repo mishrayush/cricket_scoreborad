@@ -18,7 +18,7 @@ export function strikeRotate(
   const nonStrikercheck = (element: any) => element.id === batting.nonStriker;
   let nonStrikerIndex: number =
     battingLineUp && battingLineUp.findIndex(nonStrikercheck);
-  debugger;
+
   if (strikerIndex === -1 || nonStrikerIndex === -1) {
     striker = battingLineUp && battingLineUp[0].id;
     nonStriker = battingLineUp && battingLineUp[1].id;
